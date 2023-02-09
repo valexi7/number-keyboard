@@ -1,7 +1,9 @@
 package com.davidmiguel.numberkeyboard
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -152,19 +154,48 @@ class NumberKeyboard : ConstraintLayout {
 
     /**
      * Sets number keys background.
+     * Pass number key to function to set background for specific key
      */
-    fun setNumberKeyBackground(@DrawableRes background: Int) {
-        for (key in numericKeys) {
-            key.background = ContextCompat.getDrawable(context, background)
+    fun setNumberKeyBackground(@DrawableRes background: Int, number: Int = 11) {
+        if (number < 11) { //if number is specified set background to that key
+            numericKeys[number].background = ContextCompat.getDrawable(context, background)
         }
+        else {
+            for (key in numericKeys) {
+                key.background = ContextCompat.getDrawable(context, background)
+            }
+        }
+    }
+
+    /**
+     * Sets number keys background.
+     * Pass number key to function to set background for specific key
+     */
+    fun setNumberKeyBackgroundColor(background: Int, number: Int = 11) {
+        if (number < 11) { //if number is specified set background to that key
+            numericKeys[number].setBackgroundColor(background)
+        }
+        else {
+            for (key in numericKeys) {
+                key.setBackgroundColor(background)
+            }
+        }
+    }
+
+    /**
+     * Gets number key background.
+     */
+    fun getNumberKeyBackground(number: Int): Drawable? {
+        return numericKeys[number].background
     }
 
     /**
      * Sets number keys text color.
      */
-    fun setNumberKeyTextColor(@ColorRes color: Int) {
+    fun setNumberKeyTextColor(color: Int) {
         for (key in numericKeys) {
-            key.setTextColor(ContextCompat.getColorStateList(context, color))
+            //key.setTextColor(ContextCompat.getColorStateList(context, color))
+            key.setTextColor(color)
         }
     }
 
